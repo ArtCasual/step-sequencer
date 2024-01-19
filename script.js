@@ -303,9 +303,17 @@ const saveSequence = function () {
       console.log("An error occurred:", error);
     });
 };
+let isSequencerPaused = false;
 
 const pause = function (time) {
+  // Stop the transport if it's currently playing
   Tone.Transport.stop(time);
+
+  if (isSequencerPaused) {
+    index = 0;
+    stepLight(0);
+  }
+  isSequencerPaused = !isSequencerPaused;
 };
 
 function stepLight(steps) {
